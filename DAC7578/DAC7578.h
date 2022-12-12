@@ -1,7 +1,6 @@
 #ifndef DAC7578_H
 #define DAC7578_H
 
-#include "PinNames.h"
 #include "mbed.h"
 #include <map>
 /* I2C ADDRESSES */
@@ -60,9 +59,7 @@
 class DAC7578 {
 public:
 bool LDAC_ENABLED;
-bool ADDRESS_1_ENABLED;
-bool ADDRESS_2_ENABLED;
-bool ADDRESS_3_ENABLED;
+uint8_t ENABLED_ADDRESS = 0;
 
 // Multiple DAC constructor
 DAC7578(I2C * i2c, uint8_t numDacs, uint8_t * addresses, DigitalInOut * LDAC);
@@ -73,8 +70,10 @@ DAC7578(I2C * i2c, uint8_t address, DigitalInOut * LDAC);
 DAC7578(I2C * i2c, uint8_t address);
 
 // Set voltage of channel
-void setVoltage(uint8_t channel, float v);
-void setVoltageAll(float v);
+void writeDACVoltage(uint8_t channel, float v, uint8_t index = 0);
+void updateDACVoltage(uint8_t channel, uint8_t index = 0);
+void setVoltage(uint8_t channel, float v, uint8_t index = 0);
+void setVoltageAll(float v, uint8_t index = 0);
 
 
 // Read functions
