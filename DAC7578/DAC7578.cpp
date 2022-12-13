@@ -14,6 +14,8 @@ this->numDacs = numDacs;
   this->i2c = i2c;
   this->LDAC = LDAC;
     this->LDAC->mode(OpenDrain);
+    this->LDAC->output();
+    *(this->LDAC) = 1;
   for (int i = 0; i < numDacs; ++i) {
     switch (addresses[i]) {
     case DAC7578_I2C_ADDRESS_1:
@@ -68,6 +70,8 @@ DAC7578::DAC7578(I2C *i2c, uint8_t address, DigitalInOut *LDAC) {
   this->i2c = i2c;
   this->LDAC = LDAC;
   this->LDAC->mode(OpenDrain);
+  this->LDAC->output();
+    *(this->LDAC) = 1;
   this->numDacs = 1;
   switch (address) {
   case DAC7578_I2C_ADDRESS_1:
@@ -135,10 +139,10 @@ void DAC7578::setVoltageAll(float v, uint8_t index) {
 // Read functions
 
 uint16_t DAC7578::readInputVoltage(uint8_t channel, uint8_t index) {
-    return readFromRegister(DAC7578_READ_INPUT_COMMAND, channel, index);
+    return (readFromRegister(DAC7578_READ_INPUT_COMMAND, channel, index) >> 4);
 }
 uint16_t DAC7578::readDACVoltage(uint8_t channel, uint8_t index) {
-    return readFromRegister(DAC7578_READ_COMMAND, channel, index);
+    return (readFromRegister(DAC7578_READ_COMMAND, channel, index) >> 4);
 }
 
 uint16_t DAC7578::readPowerDown(uint8_t index) {
@@ -189,7 +193,7 @@ void DAC7578::update() {
     if (LDAC_ENABLED) {
 
     *(this->LDAC) = 0;
-    ThisThread::sleep_for(10ms);
+    ThisThread::sleep_for(50ms);
     *(this->LDAC) = 1;
 
     }

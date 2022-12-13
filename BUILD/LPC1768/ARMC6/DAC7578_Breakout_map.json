@@ -2,7 +2,7 @@
     {
         "module": "DAC7578/DAC7578.o",
         "size": {
-            ".text": 1401,
+            ".text": 1403,
             ".data": 0,
             ".bss": 0,
             ".text-delta": 0,
@@ -68,10 +68,10 @@
     {
         "module": "main.o",
         "size": {
-            ".text": 1211,
+            ".text": 1478,
             ".data": 0,
             ".bss": 776,
-            ".text-delta": 20,
+            ".text-delta": 0,
             ".data-delta": 0,
             ".bss-delta": 0
         }
@@ -168,8 +168,8 @@
         "summary": {
             "static_ram": 9654,
             "static_ram_delta": 0,
-            "total_flash": 44829,
-            "total_flash_delta": 20
+            "total_flash": 45098,
+            "total_flash_delta": 0
         }
     }
 ]

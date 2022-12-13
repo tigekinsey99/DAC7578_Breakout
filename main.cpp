@@ -41,7 +41,9 @@ int main() {
   int len = 0;
   int index = INVALID_ARG;
   int command = INVALID_ARG;
-  float param = 420.0;
+  float v;
+  char param[4];
+  param[1] = '.';
   char r[32];
   char msg[] = "Select index\r\n";
   char cMsg[] = "Select command\r\n";
@@ -53,6 +55,8 @@ int main() {
 
     pc.write(msg, sizeof(msg));
     pc.read(sBuff, sizeof(sBuff));
+    pc.write(sBuff, 1);
+    pc.write("\r\n", sizeof("\r\n"));
     switch (sBuff[0]) {
     case '0':
       index = 0;
@@ -70,12 +74,16 @@ int main() {
 
     pc.write(cMsg, sizeof(cMsg));
     pc.read(sBuff, sizeof(sBuff));
+    pc.write(sBuff, 1);
+    pc.write("\r\n", sizeof("\r\n"));
     int channel = INVALID_ARG;
 
     switch (sBuff[0]) {
     case 'c': // clear
       pc.write(scaleMsg, sizeof(scaleMsg));
       pc.read(sBuff, sizeof(sBuff));
+      pc.write(sBuff, 1);
+      pc.write("\r\n", sizeof("\r\n"));
       switch (sBuff[0]) {
       case '0':
         dacs.clearAllZeroScale(index);
@@ -111,28 +119,47 @@ int main() {
 
       pc.write(vMsg, sizeof(vMsg));
       pc.read(sBuff, sizeof(sBuff));
-      param = atof(sBuff);
-      if (param == 0.0)
+      param[0] = sBuff[0];
+      pc.write(sBuff, 1);
+      pc.write(".", sizeof("."));
+      pc.read(sBuff, sizeof(sBuff));
+      param[2] = sBuff[0];
+      pc.write(sBuff, 1);
+      pc.read(sBuff, sizeof(sBuff));
+      param[3] = sBuff[0];
+      pc.write(sBuff, 1);
+      pc.write("\r\n", sizeof("\r\n"));
+      v = atof(param);
+      if (v == 0.0) {
         break;
+        }
+        if (v > 3.3f) v = 3.3f;
+        if (v < 0.0f) v = 0.0f;
       pc.write(chMsg, sizeof(chMsg));
       pc.read(sBuff, sizeof(sBuff));
+      pc.write(sBuff, 1);
+      pc.write("\r\n", sizeof("\r\n"));
       if (sBuff[0] < '0' || sBuff[0] > '8')
         break;
       channel = sBuff[0] - 48;
-      dacs.setVoltage(channel, param, index);
+      dacs.setVoltage(channel, v, index);
       break;
     case 'r': // read voltage
       pc.write(chMsg, sizeof(chMsg));
-      pc.read(&sBuff, 1);
+      pc.read(sBuff, 1);
+      pc.write(sBuff, 1);
+      pc.write("\r\n", sizeof("\r\n"));
       if (sBuff[0] < '0' || sBuff[0] > '8')
         break;
       channel = sBuff[0] - '0';
-      sprintf(r,"DAC %d CHANNEL %d: %d\n", channel, index, dacs.readDACVoltage(channel, index));
+      sprintf(r,"DAC %d CHANNEL %d: %d\r\n", index, channel, dacs.readDACVoltage(channel, index));
       pc.write(r, sizeof(r));
       break;
     case 'l': // LDAC
       pc.write(chMsg, sizeof(chMsg));
-      pc.read(&sBuff, 1);
+      pc.read(sBuff, 1);
+      pc.write(sBuff, 1);
+      pc.write("\r\n", sizeof("\r\n"));
       if (sBuff[0] < '0' || sBuff[0] > '8')
         break;
       channel = sBuff[0] - 48;
