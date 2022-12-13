@@ -5,7 +5,7 @@ This is a breakout board for the Texas Instruments [DAC7578](https://www.ti.com/
 The Mbed only supports one analog output pin. We wanted the user to have more analog outputs. The DAC7578 is a 12-bit 8 channel DAC that interfaces via I2C. This gives the user 8 more analog outputs with 12 bits of precision with the sacrifice of an I2C address, 2 pins for SDA and SCL and potentially a few more pins if the user wishes to use the DAC7578's additional functionalities.
 
 ## 12-bit, Octal Channel, Ultra-Low Glitch, Voltage Output, 2-Wire Interface DAC DAC7578
-The DAC7578 is a low-power, voltage-output, octal–channel, digital-to-analog converter (DACs).
+The DAC7578 is a low-power, voltage-output, octal–channel, digital-to-analog converter (DAC). The device is monolithic, provides good linearity, and minimizes undesired code-to-code transient voltages (glitch).
 
 ## Notes
 THE DAC7578 offers 12-bits of resolution when outputing a voltage ranging from 0 to AVDD. Power consumption is typically 2.32 mW at 3V, reducing to 0.68uW in power-down mode.
