@@ -2,10 +2,10 @@
     {
         "module": "DAC7578/DAC7578.o",
         "size": {
-            ".text": 1283,
+            ".text": 1401,
             ".data": 0,
             ".bss": 0,
-            ".text-delta": 194,
+            ".text-delta": 0,
             ".data-delta": 0,
             ".bss-delta": 0
         }
@@ -13,7 +13,7 @@
     {
         "module": "[lib]/c_w.l",
         "size": {
-            ".text": 4522,
+            ".text": 9998,
             ".data": 16,
             ".bss": 348,
             ".text-delta": 0,
@@ -24,10 +24,10 @@
     {
         "module": "[lib]/fz_ws.l",
         "size": {
-            ".text": 1448,
+            ".text": 1798,
             ".data": 0,
             ".bss": 0,
-            ".text-delta": 1448,
+            ".text-delta": 0,
             ".data-delta": 0,
             ".bss-delta": 0
         }
@@ -36,6 +36,17 @@
         "module": "[lib]/libcppabi_w.l",
         "size": {
             ".text": 44,
+            ".data": 0,
+            ".bss": 0,
+            ".text-delta": 0,
+            ".data-delta": 0,
+            ".bss-delta": 0
+        }
+    },
+    {
+        "module": "[lib]/m_ws.l",
+        "size": {
+            ".text": 504,
             ".data": 0,
             ".bss": 0,
             ".text-delta": 0,
@@ -57,10 +68,10 @@
     {
         "module": "main.o",
         "size": {
-            ".text": 152,
+            ".text": 1211,
             ".data": 0,
-            ".bss": 0,
-            ".text-delta": 16,
+            ".bss": 776,
+            ".text-delta": 20,
             ".data-delta": 0,
             ".bss-delta": 0
         }
@@ -71,7 +82,7 @@
             ".text": 9616,
             ".data": 168,
             ".bss": 6610,
-            ".text-delta": 124,
+            ".text-delta": 0,
             ".data-delta": 0,
             ".bss-delta": 0
         }
@@ -79,10 +90,10 @@
     {
         "module": "mbed-os/connectivity",
         "size": {
-            ".text": 270,
+            ".text": 471,
             ".data": 0,
             ".bss": 0,
-            ".text-delta": 2,
+            ".text-delta": 0,
             ".data-delta": 0,
             ".bss-delta": 0
         }
@@ -90,10 +101,21 @@
     {
         "module": "mbed-os/drivers",
         "size": {
-            ".text": 836,
+            ".text": 4068,
             ".data": 0,
             ".bss": 0,
-            ".text-delta": 66,
+            ".text-delta": 0,
+            ".data-delta": 0,
+            ".bss-delta": 0
+        }
+    },
+    {
+        "module": "mbed-os/features",
+        "size": {
+            ".text": 18,
+            ".data": 0,
+            ".bss": 0,
+            ".text-delta": 0,
             ".data-delta": 0,
             ".bss-delta": 0
         }
@@ -101,7 +123,7 @@
     {
         "module": "mbed-os/hal",
         "size": {
-            ".text": 2162,
+            ".text": 2174,
             ".data": 4,
             ".bss": 59,
             ".text-delta": 0,
@@ -112,7 +134,7 @@
     {
         "module": "mbed-os/platform",
         "size": {
-            ".text": 7449,
+            ".text": 7597,
             ".data": 64,
             ".bss": 340,
             ".text-delta": 0,
@@ -123,10 +145,10 @@
     {
         "module": "mbed-os/rtos",
         "size": {
-            ".text": 438,
+            ".text": 452,
             ".data": 0,
             ".bss": 0,
-            ".text-delta": 94,
+            ".text-delta": 0,
             ".data-delta": 0,
             ".bss-delta": 0
         }
@@ -134,20 +156,20 @@
     {
         "module": "mbed-os/targets",
         "size": {
-            ".text": 5099,
+            ".text": 5189,
             ".data": 4,
             ".bss": 241,
-            ".text-delta": 94,
+            ".text-delta": 0,
             ".data-delta": 0,
             ".bss-delta": 0
         }
     },
     {
         "summary": {
-            "static_ram": 8878,
+            "static_ram": 9654,
             "static_ram_delta": 0,
-            "total_flash": 33607,
-            "total_flash_delta": 2038
+            "total_flash": 44829,
+            "total_flash_delta": 20
         }
     }
 ]

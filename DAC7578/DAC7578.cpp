@@ -110,7 +110,9 @@ DAC7578::DAC7578(I2C *i2c, uint8_t address) {
 
 // Set voltage of channel
 void DAC7578::writeDACVoltage(uint8_t channel, float v, uint8_t index) {
-    uint16_t data = v * (2 << 12) / 3.3;
+    v *= ((65520)/3.3f);
+    uint16_t data = uint16_t(v);
+    //data = (data << 4);
     this->writeToRegister(DAC7578_WRITE_COMMAND, channel, data, index);
 }
 void DAC7578::updateDACVoltage(uint8_t channel, uint8_t index) {
@@ -118,14 +120,18 @@ void DAC7578::updateDACVoltage(uint8_t channel, uint8_t index) {
 }
 
 void DAC7578::setVoltage(uint8_t channel, float v, uint8_t index) {
-    uint16_t data = v * (2 << 12) / 3.3;
+    v *= ((65520)/3.3f);
+    uint16_t data = uint16_t(v);
+    //data = (data << 4);
     this->writeToRegister(DAC7578_WRITE_AND_UPDATE_COMMAND, channel, data, index);
 }
 void DAC7578::setVoltageAll(float v, uint8_t index) {
-    uint16_t data = v * (2 << 12) / 3.3;
+    v *= ((65520)/3.3f);
+    uint16_t data = uint16_t(v);
+    //data = (data << 4);
     this->writeToRegister(DAC7578_WRITE_AND_UPDATE_ALL_COMMAND, DAC7578_CHANNEL_ALL, data, index);
 }
-
+//65520
 // Read functions
 
 uint16_t DAC7578::readInputVoltage(uint8_t channel, uint8_t index) {
@@ -203,13 +209,24 @@ void DAC7578::writeToRegister(uint8_t command, uint8_t channel, uint16_t data, u
     if (!ENABLED_ADDRESS) return;
     this->buffer[0] = (command << 4) | channel;
     this->buffer[1] = data >> 8;
-    this->buffer[2] = data & 0x0F;
+    this->buffer[2] = data & 0x00FF;
     this->i2c->write(DACIndexToAddress[index], buffer, 3);
 }
+/*
+  Function: readFromRegister
+
+  Parameters:
+
+  byte command code
+  byte channel
+  byte index : DAC index for multiple DAC setup
+ */
 uint16_t DAC7578::readFromRegister(uint8_t command, uint8_t channel, uint8_t index) {
     if (!ENABLED_ADDRESS) return 0xFEFE; //This can be the error code
     this->buffer[0] = (command << 4) | channel;
-    this->i2c->read(DACIndexToAddress[index], buffer, 3);
+    this->i2c->write(DACIndexToAddress[index], buffer, 1);
+    buffer[0] = 0x00;
+    this->i2c->read(DACIndexToAddress[index], buffer, 2);
 
     return (uint16_t)(buffer[0] << 8) | buffer[1];
 }
